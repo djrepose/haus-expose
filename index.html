@@ -16,8 +16,10 @@ color:#333;
 }
 
 .wrapper{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
+padding-right:40px;
+padding-left:90px;
 }
 
 /* GALLERY */
@@ -180,7 +182,65 @@ margin-top:25px;
 margin-bottom:40px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
+.two-column{
+display:grid;
+grid-template-columns: 1.7fr 1fr;
+gap:50px;
+align-items:start;
+}
 
+.contact-box{
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.contact-form input,
+.contact-form textarea{
+width:calc(100% - 20px);
+padding:10px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
+}
+
+.contact-form textarea{
+height:120px;
+}
+
+.contact-form button{
+margin-top:15px;
+background:#2a7c3f;
+color:white;
+border:none;
+padding:12px;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+width:100%;
+}
+.whatsapp-button{
+position:fixed;
+bottom:25px;
+right:25px;
+width:60px;
+height:60px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 6px 20px rgba(0,0,0,0.25);
+z-index:999;
+}
+
+.whatsapp-button img{
+width:28px;
+height:28px;
+display:block;
+}
 </style>
 </head>
 
@@ -267,12 +327,15 @@ nach Vereinbarung
 
 <h2>Objektbeschreibung</h2>
 
+<div class="two-column">
+
+<div>
 <h3>Einfamilienhaus mit grosszügigem Garten und moderner Energieversorgung</h3>
 
 <p>
-Dieses gepflegte <strong>7.5-Zimmer-Einfamilienhaus</strong> in ruhiger und sonniger Wohnlage
-von <strong>9435 Au / Heerbrugg</strong> bietet mit rund <strong>176 m² Wohnfläche (SIA 416)</strong>
-sowie einem grosszügigen <strong>Grundstück von 489 m²</strong> viel Platz für Familien,
+Dieses gepflegte 7.5-Zimmer-Einfamilienhaus in ruhiger und sonniger Wohnlage
+von 9435 Au / Heerbrugg bietet mit rund 176 m² Wohnfläche (SIA 416)
+sowie einem grosszügigen Grundstück von 489 m² viel Platz für Familien,
 Homeoffice oder individuelle Nutzung.
 </p>
 
@@ -285,12 +348,12 @@ eine flexible Nutzung als Kinder-, Gäste- oder Arbeitszimmer.
 
 <p>
 Die Liegenschaft wurde laufend modernisiert und befindet sich in sehr gutem Zustand.
-<strong>Dreifach verglaste Fenster, erneuerte Heizung, modernisierte Küche und Bäder
-sowie neue Bodenbeläge</strong> sorgen für zeitgemässen Wohnkomfort.
+Dreifach verglaste Fenster, erneuerte Heizung, modernisierte Küche und Bäder
+sowie neue Bodenbeläge sorgen für zeitgemässen Wohnkomfort.
 </p>
 
 <p>
-Die Kombination aus <strong>Pelletheizung und Photovoltaikanlage</strong>
+Die Kombination aus Pelletheizung und Photovoltaikanlage
 gewährleistet eine effiziente und nachhaltige Energieversorgung.
 </p>
 
@@ -300,6 +363,38 @@ Wohnraum im Freien. Schulen, Einkaufsmöglichkeiten sowie der Bahnhof Heerbrugg
 sind in wenigen Minuten erreichbar. Die Südwest-Ausrichtung garantiert eine
 sonnige und ruhige Wohnatmosphäre.
 </p>
+
+</div>
+<div class="contact-box">
+
+<h3>Anbieter kontaktieren</h3>
+
+<form class="contact-form" onsubmit="sendMail(); return false;">
+
+<input type="text" id="vorname" placeholder="Vorname *" required>
+
+<input type="text" id="nachname" placeholder="Nachname *" required>
+
+<input type="email" id="email" placeholder="E-Mail-Adresse *" required>
+
+<input type="tel" id="telefon" placeholder="Telefonnummer *" required>
+
+<textarea id="nachricht">
+Guten Tag
+
+Ich interessiere mich für das Objekt
+"Einfamilienhaus Feldstrasse 10 in Heerbrugg".
+
+Bitte kontaktieren Sie mich.
+
+Freundliche Grüsse
+</textarea>
+
+<button type="submit">Anfrage senden</button>
+
+</form>
+
+</div>
 
 </div>
 
@@ -330,10 +425,6 @@ sonnige und ruhige Wohnatmosphäre.
 <span>Verfügbar ab</span>
 <strong>nach Vereinbarung</strong>
 </div>
-<div class="fact-row">
-<span>Gartenpflege</span>
-<strong>durch den Mieter</strong>
-</div>
 </div>
 
 <div class="features">
@@ -342,7 +433,8 @@ sonnige und ruhige Wohnatmosphäre.
 <div class="feature">Garten</div>
 <div class="feature">Keller</div>
 <div class="feature">Geschirrspüler</div>
-<div class="feature">Aussenparkplatz</div>
+<div class="feature">Garage</div>
+<div class="feature">3 Aussenparkplätze</div>
 <div class="feature">Einstellplatz</div>
 <div class="feature">Waschmaschine</div>
 <div class="feature">Kinderfreundlich</div>
@@ -416,6 +508,40 @@ L.marker([47.420283, 9.635359]).addTo(map)
 
 </script>
 
+<script>
+
+function sendMail(){
+
+let vorname = document.getElementById("vorname").value;
+let nachname = document.getElementById("nachname").value;
+let email = document.getElementById("email").value;
+let telefon = document.getElementById("telefon").value;
+let nachricht = document.getElementById("nachricht").value;
+
+let subject = "Anfrage Einfamilienhaus Feldstrasse 10";
+
+let body =
+"Name: " + vorname + " " + nachname + "%0D%0A" +
+"Email: " + email + "%0D%0A" +
+"Telefon: " + telefon + "%0D%0A%0D%0A" +
+nachricht;
+
+window.location.href =
+"mailto:djrepose@hotmail.com?subject=" + subject + "&body=" + body;
+
+}
+
+</script>
+
+<!--
+<a class="whatsapp-button"
+href="https://wa.me/41786020612"
+target="_blank">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+
+</a>
+
+-->
 </body>
 </html>
-
