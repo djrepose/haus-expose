@@ -367,30 +367,36 @@ sonnige und ruhige Wohnatmosphäre.
 </div>
 
    
-<div class="contact-box">
+<!-- CONTACT FORM -->
 
 <h3>Anbieter kontaktieren</h3>
 
-<form class="contact-form" onsubmit="sendMail(); return false;">
+<div class="contact-box">
 
-<input type="text" id="vorname" placeholder="Vorname *" required>
+<form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
 
-<input type="text" id="nachname" placeholder="Nachname *" required>
+<input type="hidden" name="access_key" value="7a3b5fb4-3ef4-40ef-8946-c85ec2a49918">
 
-<input type="email" id="email" placeholder="E-Mail-Adresse *" required>
+<input type="hidden" name="subject" value="Neue Anfrage Einfamilienhaus Feldstrasse 10">
 
-<input type="tel" id="telefon" placeholder="Telefonnummer *" required>
+<input type="text" name="Vorname" placeholder="Vorname *" required>
 
-<textarea id="nachricht">
+<input type="text" name="Nachname" placeholder="Nachname *" required>
+
+<input type="email" name="Email" placeholder="E-Mail-Adresse *" required>
+
+<input type="tel" name="Telefon" placeholder="Telefonnummer">
+
+<textarea name="Nachricht">
 Guten Tag
 
 Ich interessiere mich für das Objekt
 "Einfamilienhaus Feldstrasse 10 in Heerbrugg".
 
 Bitte kontaktieren Sie mich.
-
-Freundliche Grüsse
 </textarea>
+
+<input type="checkbox" name="botcheck" style="display:none">
 
 <button type="submit">Anfrage senden</button>
 
@@ -547,5 +553,6 @@ target="_blank">
 -->
 </body>
 </html>
+
 
 
