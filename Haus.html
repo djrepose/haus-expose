@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Einfamilienhaus Feldstrasse 10</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f3f4f6;
+margin:0;
+color:#333;
+}
+
+.wrapper{
+max-width:1100px;
+margin:auto;
+}
+
+/* GALLERY */
+
+.gallery{
+margin-top:30px;
+position:relative;
+}
+
+.gallery-main{
+height:500px;
+overflow:hidden;
+border-radius:8px;
+}
+
+.gallery-main{
+height:520px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f3f4f6;
+border-radius:8px;
+overflow:hidden;
+}
+
+.gallery-main img{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+border-radius:6px;
+}
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:white;
+border-radius:50%;
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+.arrow-left{ left:10px;}
+.arrow-right{ right:10px;}
+
+.thumbs{
+display:flex;
+gap:8px;
+margin-top:10px;
+overflow-x:auto;
+}
+
+.thumbs img{
+height:70px;
+border-radius:4px;
+cursor:pointer;
+opacity:0.7;
+}
+
+.thumbs img.active{
+opacity:1;
+border:2px solid #2a7c3f;
+}
+
+/* INFO CARD */
+
+.info-card{
+margin-top:20px;
+padding:30px;
+background:white;
+border-radius:8px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+h1{
+margin:0;
+font-size:30px;
+}
+
+.subtitle{
+color:#666;
+margin-top:5px;
+}
+
+.price{
+color:#1e7e34;
+font-size:26px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.data-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.data-box{
+background:#f6f6f6;
+padding:14px;
+border-radius:6px;
+}
+
+/* CONTENT */
+
+.content{
+padding:20px;
+}
+
+.section{
+margin-top:40px;
+}
+
+.section h2{
+border-bottom:2px solid #e5e5e5;
+padding-bottom:8px;
+}
+
+/* DETAILS */
+
+.details{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+margin-top:30px;
+}
+
+.fact-row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+.features{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px;
+}
+
+.feature{
+background:#f7f7f7;
+padding:10px;
+border-radius:5px;
+}
+
+/* MAP */
+
+#map{
+height:420px;
+border-radius:8px;
+margin-top:25px;
+margin-bottom:40px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="wrapper">
+
+<!-- GALLERY -->
+
+<div class="gallery">
+
+<div class="gallery-main">
+<img id="mainImage" src="D6E8D611-E313-F111-A69B-00224883ECB0.jpg">
+</div>
+
+<div class="arrow arrow-left" onclick="prev()">❮</div>
+<div class="arrow arrow-right" onclick="next()">❯</div>
+
+<div class="thumbs" id="thumbs">
+
+<img src="D6E8D611-E313-F111-A69B-00224883ECB0.jpg">
+<img src="D6E8D611-E313-F111-A69B-00224883ECB1.png">
+<img src="A46EA121-E313-F111-A69B-00224883ECB0.jpg">
+<img src="A21C8F1A-E313-F111-A69B-00224883ECB0.jpg">
+<img src="D7E8D611-E313-F111-A69B-00224883ECB0.jpg">
+<img src="63B76C44-E313-F111-A69B-00224883ECB0.jpg">
+<img src="49D04371-E313-F111-A69B-00224883ECB0.jpg">
+<img src="0B3E206B-E313-F111-A69B-00224883ECB0.jpg">
+<img src="C67C1836-E313-F111-A69B-00224883ECB0.jpg">
+<img src="835AAB3D-E313-F111-A69B-00224883ECB0.jpg">
+<img src="835AAB3D-E313-F111-A69B-00224883ECB1.png">
+<img src="02E87D2C-E313-F111-A69B-00224883ECB0.jpg">
+<img src="02E87D2C-E313-F111-A69B-00224883ECB1.png">
+<img src="01E87D2C-E313-F111-A69B-00224883ECB0.jpg">
+<img src="A56EA121-E313-F111-A69B-00224883ECB0.jpg">
+<img src="63B76C44-E313-F111-A69B-00224883ECB1.png">
+<img src="63B76C44-E313-F111-A69B-00224883ECB2.png">
+
+</div>
+
+</div>
+
+<!-- INFO -->
+
+<div class="info-card">
+
+<h1>7.5 Zimmer, 176 m²</h1>
+<div class="subtitle">Einfamilienhaus · Feldstrasse 10 · 9435 Au / Heerbrugg</div>
+
+<div class="price">CHF 2'800 pro Monat</div>
+
+<div class="data-grid">
+
+<div class="data-box">
+<strong>Objektart</strong><br>
+Einfamilienhaus
+</div>
+
+<div class="data-box">
+<strong>Wohnfläche</strong><br>
+176 m² (SIA 416)
+</div>
+
+<div class="data-box">
+<strong>Grundstück</strong><br>
+489 m²
+</div>
+
+
+<div class="data-box">
+<strong>Verfügbar</strong><br>
+nach Vereinbarung
+</div>
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+<div class="section">
+
+<h2>Objektbeschreibung</h2>
+
+<h3>Einfamilienhaus mit grosszügigem Garten und moderner Energieversorgung</h3>
+
+<p>
+Dieses gepflegte <strong>7.5-Zimmer-Einfamilienhaus</strong> in ruhiger und sonniger Wohnlage
+von <strong>9435 Au / Heerbrugg</strong> bietet mit rund <strong>176 m² Wohnfläche (SIA 416)</strong>
+sowie einem grosszügigen <strong>Grundstück von 489 m²</strong> viel Platz für Familien,
+Homeoffice oder individuelle Nutzung.
+</p>
+
+<p>
+Der helle Wohn- und Essbereich mit direktem Zugang zur grossen Terrasse sorgt
+für ein angenehmes, lichtdurchflutetes Wohnambiente. Die Küche bietet
+grosszügige Arbeitsflächen und viel Stauraum. Mehrere Schlafzimmer ermöglichen
+eine flexible Nutzung als Kinder-, Gäste- oder Arbeitszimmer.
+</p>
+
+<p>
+Die Liegenschaft wurde laufend modernisiert und befindet sich in sehr gutem Zustand.
+<strong>Dreifach verglaste Fenster, erneuerte Heizung, modernisierte Küche und Bäder
+sowie neue Bodenbeläge</strong> sorgen für zeitgemässen Wohnkomfort.
+</p>
+
+<p>
+Die Kombination aus <strong>Pelletheizung und Photovoltaikanlage</strong>
+gewährleistet eine effiziente und nachhaltige Energieversorgung.
+</p>
+
+<p>
+Der gepflegte Garten mit Sitzplatz bietet Privatsphäre und zusätzlichen
+Wohnraum im Freien. Schulen, Einkaufsmöglichkeiten sowie der Bahnhof Heerbrugg
+sind in wenigen Minuten erreichbar. Die Südwest-Ausrichtung garantiert eine
+sonnige und ruhige Wohnatmosphäre.
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h2>Eckdaten & Ausstattung</h2>
+
+<div class="details">
+
+<div>
+
+<div class="fact-row"><span>Zimmer</span><strong>7.5</strong></div>
+<div class="fact-row"><span>Wohnfläche</span><strong>176 m²</strong></div>
+<div class="fact-row"><span>Baujahr</span><strong>1991</strong></div>
+<div class="fact-row"><span>Grundstück</span><strong>489 m²</strong></div>
+<div class="fact-row">
+<span>Nettomietzins</span>
+<strong>CHF 2'800.– / Monat</strong>
+</div>
+
+<div class="fact-row">
+<span>Nebenkosten</span>
+<strong>nach effektivem Verbrauch</strong>
+</div>
+
+<div class="fact-row">
+<span>Verfügbar ab</span>
+<strong>nach Vereinbarung</strong>
+</div>
+</div>
+
+<div class="features">
+
+<div class="feature">Terrasse</div>
+<div class="feature">Garten</div>
+<div class="feature">Keller</div>
+<div class="feature">Geschirrspüler</div>
+<div class="feature">Aussenparkplatz</div>
+<div class="feature">Einstellplatz</div>
+<div class="feature">Waschmaschine</div>
+<div class="feature">Kinderfreundlich</div>
+<div class="feature">Balkon</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>Lage</h2>
+
+<div id="map"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const images = [...document.querySelectorAll("#thumbs img")];
+let index = 0;
+
+function show(i){
+index=i;
+document.getElementById("mainImage").src = images[i].src;
+
+images.forEach(img=>img.classList.remove("active"));
+images[i].classList.add("active");
+}
+
+images.forEach((img,i)=>{
+img.onclick=()=>show(i);
+});
+
+function next(){
+index=(index+1)%images.length;
+show(index);
+}
+
+function prev(){
+index=(index-1+images.length)%images.length;
+show(index);
+}
+
+show(0);
+
+</script>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+var map = L.map('map').setView([47.41172, 9.63104], 16);
+
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+}).addTo(map);
+
+L.marker([47.420283, 9.635359]).addTo(map)
+.bindPopup("Feldstrasse 10<br>9435 Au / Heerbrugg")
+.openPopup();
+
+</script>
+
+</body>
+</html>
