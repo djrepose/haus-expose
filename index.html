@@ -244,6 +244,19 @@ width:28px;
 height:28px;
 display:block;
 }
+
+#stats{
+font-size:10px;
+color:#999;
+text-align:center;
+margin-top:40px;
+}
+
+#stats span{
+font-size:10px;
+color:#999;
+font-weight:normal;
+}
 </style>
 </head>
 
@@ -553,26 +566,33 @@ target="_blank">
 </a>
 
 -->
-<div id="stats" style="text-align:center;margin-top:60px;font-size:12px;color:#999;">
+<div id="stats">
 <span id="visits">0</span> |
 <span id="requests">0</span>
 </div>
+    
 <script>
-// Besucher zählen
+
 let visits = localStorage.getItem("visits");
 
 if(!visits){
 visits = 0;
 }
 
+if(!sessionStorage.getItem("visited")){
+
 visits++;
 
 localStorage.setItem("visits", visits);
 
+sessionStorage.setItem("visited", "true");
+
+}
+
 document.getElementById("visits").innerText = visits;
 
 
-// heutige Anfragen
+// Anfragen laden
 let requests = localStorage.getItem("requests");
 
 if(!requests){
@@ -583,22 +603,11 @@ localStorage.setItem("requests", requests);
 document.getElementById("requests").innerText = requests;
 
 </script>
-<script>
 
-function increaseRequests(){
-
-let requests = localStorage.getItem("requests");
-
-requests++;
-
-localStorage.setItem("requests", requests);
-
-}
-
-</script>
     
 </body>
 </html>
+
 
 
 
