@@ -399,7 +399,7 @@ Bitte kontaktieren Sie mich.
 
 <input type="checkbox" name="botcheck" style="display:none">
 
-<button type="submit">Anfrage senden</button>
+<button type="submit" onclick="increaseRequests()">Anfrage senden</button>
 
 </form>
 
@@ -584,9 +584,23 @@ localStorage.setItem("requests", requests);
 document.getElementById("requests").innerText = requests;
 
 </script>
+<script>
+
+function increaseRequests(){
+
+let requests = localStorage.getItem("requests");
+
+requests++;
+
+localStorage.setItem("requests", requests);
+
+}
+
+</script>
     
 </body>
 </html>
+
 
 
 
