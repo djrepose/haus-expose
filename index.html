@@ -553,8 +553,41 @@ target="_blank">
 </a>
 
 -->
+<div id="stats" style="text-align:center;margin-top:60px;font-size:32px;font-weight:bold;color:#2a7c3f;">
+<span id="visits">0</span> |
+<span id="requests">0</span>
+</div>
+<script>
+
+// Besucher zählen
+let visits = localStorage.getItem("visits");
+
+if(!visits){
+visits = 0;
+}
+
+visits++;
+
+localStorage.setItem("visits", visits);
+
+document.getElementById("visits").innerText = visits;
+
+
+// heutige Anfragen
+let requests = localStorage.getItem("requests");
+
+if(!requests){
+requests = 0;
+localStorage.setItem("requests", requests);
+}
+
+document.getElementById("requests").innerText = requests;
+
+</script>
+    
 </body>
 </html>
+
 
 
 
